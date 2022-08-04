@@ -10,23 +10,19 @@
 </head>
 <body>
 
-<div class="container-fluid text-center top-container">
-    <img src="static/images/uta-logo-200.png">
-</div>
-<div class="container">
+        <div class="container-fluid text-center top-container">
+            <img src="static/images/uta-logo-200.png">
+        </div>
+        <div class="container">
+            {% include "includes/nav.html" %}
 
-    {% include "includes/nav.html" %}
+                {% block content %}
 
-
-
-        {% block content %}
-
-        {% endblock %}
+                {% endblock %}
 
 
-
-
-
-    {% include "includes/footer.html" %}
-</body>
+            
+        </div>
+        {% include "includes/footer.html" %}
+    </body>
 </html>

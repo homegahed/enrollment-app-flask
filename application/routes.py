@@ -11,7 +11,8 @@ def index():
 
 
 @app.route("/courses")
-def courses():
+@app.route("/courses/<term>")
+def courses(term="Fall 2019"):
     
     courses_data_dict = [{"courseID":"1111","title":"PHP 101","description":"Intro to PHP","credits":3,"term":"Fall, Spring"}, 
                          {"courseID":"2222","title":"Java 1","description":"Intro to Java Programming","credits":4,"term":"Spring"}, 
@@ -21,7 +22,7 @@ def courses():
                          {"courseID":"6666","title":"Test2","description":"Test test test","credits":4,"term":"Summer"}]
 
     # print(courses_data_dict[0])
-    return render_template('courses.html', courses_data=courses_data_dict, courses=True)
+    return render_template('courses.html', courses_data=courses_data_dict, courses=True, term=term)
 
 @app.route("/register")
 def register():
