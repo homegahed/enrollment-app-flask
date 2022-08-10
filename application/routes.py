@@ -1,6 +1,28 @@
 
 from application import app
-from flask import render_template, request
+from application import db
+from flask import render_template, request, redirect
+
+
+
+
+from dash import Dash
+
+from dash import Output, Input
+
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+# from application.dash1 import d1
+from application.dash2 import d2
+
+
+from application.dsh1 import dash_app_1
+
+
+
+
+
+
+
 
 
 
@@ -29,6 +51,7 @@ def courses(term="Fall 2019"):
 def register():
     return render_template('register.html', register=True)
 
+
 @app.route("/login")
 def login():
     return render_template('login.html', login=True)
@@ -42,3 +65,50 @@ def enrollment():
     
     return render_template('enrollment.html', enrollment=True,
                            data={"id":id, "title":title, "term":term})
+    
+
+
+
+class User(db.Document):
+    user_id     =    db.IntField( unique= True )
+    first_name  =    db.StringField( max_length=50 )
+    last_name   =    db.StringField( max_length=50 )
+    email       =    db.StringField( max_length=30 )
+    password    =    db.StringField( max_length=30 )
+    
+    
+@app.route("/user", methods=['GET'])
+def user():
+    # User(user_id=1, first_name="Christian", last_name="Hur", 
+    #      email="Christian@uta.com", password="password123").save()
+    # User(user_id=2, first_name="Mary", last_name="Jane", 
+    #      email="Mary@uta.com", password="password123").save()
+    # User(user_id=3, first_name="Hossam", last_name="Megahed", 
+    #      email="Hossam@uta.com", password="password123").save()
+    users = User.objects.all()
+    return render_template("user.html", users=users)
+
+
+
+
+@app.route('/dsh_1/')
+def dashboard1():
+    return redirect('/dsh_1')
+
+
+
+
+
+flask_dash = DispatcherMiddleware(app, {
+    '/dsh_1':dash_app_1.server
+    })
+
+# @app.route('/dsh_1/')
+# def d():
+#     return redirect('/dsh_1')
+
+
+
+
+
+    
