@@ -1,20 +1,11 @@
-
-import mimetypes
 from application import app
 from application import db
 from flask import render_template, request, redirect, json, Response
-
-
-
-
-from dash import Dash
-
-from dash import Output, Input
-
+from application.forms import LoginForm, RegisterForm
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
-
 from application.dash1 import dash_app_1
 from application.dash2 import dash_app_2
+
 
 
 courses_data_dict = [{"courseID":"1111","title":"PHP 101","description":"Intro to PHP","credits":3,"term":"Fall, Spring"}, 
@@ -49,9 +40,10 @@ def register():
     return render_template('register.html', register=True)
 
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template('login.html', login=True)
+    form = LoginForm()
+    return render_template('login.html', login=True, title='Login', form=form)
 
 
 @app.route("/enrollment", methods=['GET', 'POST'])
